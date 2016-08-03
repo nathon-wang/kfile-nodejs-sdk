@@ -1,0 +1,71 @@
+[
+    {
+        "pattern": "/v1/xfile/link/list",
+        "method": "POST",
+        "arguments":{
+        }
+    },
+    {
+        "pattern": "/v1/xfile/link/create",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "password": {
+                "type": "str",
+                "min": 0,
+                "length": 32
+            },
+            "age": {
+                "type": "int",
+                "min": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/link/verify",
+        "method": "POST",
+        "arguments":{
+            "link": {
+                "type": "str",
+                "length": 16
+            },
+            "password": {
+                "type": "str",
+                "min": 0,
+                "length": 32
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/link/update",
+        "method": "POST",
+        "arguments":{
+            "linkId": {
+                "type": "int",
+                "min": 1
+            },
+            "password": {
+                "type": "str",
+                "optional": "",
+                "length": 32
+            },
+            "age": {
+                "type": "int",
+                "min": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/link/delete",
+        "method": "POST",
+        "arguments":{
+            "links": {
+                "type": "intArray",
+                "length":50
+            }
+        }
+    }
+]

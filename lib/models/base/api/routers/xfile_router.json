@@ -1,0 +1,279 @@
+[
+    {
+        "pattern":"/v1/xfile/cage/batch/move",
+        "method":"POST",
+        "arguments":{
+            "xids":{
+                "type":"intArray",
+                "min": 2,
+                "max": 512
+            },
+            "dstXid":{
+                "type":"int",
+                "min":1
+            }
+        }
+    },
+    {
+        "pattern":"/v1/xfile/share/batch/move",
+        "method":"POST",
+        "arguments":{
+            "xids":{
+                "type":"intArray",
+                "min": 2,
+                "max": 512
+            },
+            "dstXid":{
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/cage/move",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "dstXid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/share/move",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "dstXid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/cage/recover",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/share/recover",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/cage/delete",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/share/delete",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/recycle/delete",
+        "method": "POST",
+        "arguments":{
+            "userXid": {
+                "type": "int",
+                "min": 1
+            },
+            "xid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern":"/v1/xfile/cage/batch/archive",
+        "method":"POST",
+        "arguments":{
+            "xids":{
+                "type": "intArray",
+                "min": 2,
+                "max": 1024
+            },
+            "opVers":{
+                "type": "intArray",
+                "min": 2,
+                "optional": []
+            }
+        }
+    },
+    {
+        "pattern":"/v1/xfile/share/batch/archive",
+        "method":"POST",
+        "arguments":{
+            "xids":{
+                "type":" intArray",
+                "min": 2,
+                "max": 1024
+            },
+            "opVers":{
+                "type": "intArray",
+                "min": 2,
+                "optional": []
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/cage/archive",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "opVer":{
+                "type": "int",
+                "min": 1,
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/share/archive",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "opVer":{
+                "type": "int",
+                "min": 1,
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/cage/rename",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "name": {
+                "type": "str",
+                "length": 1024
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/share/rename",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "name": {
+                "type": "str",
+                "length": 1024
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/subscribe",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/unsubscribe",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/subscribe/list",
+        "method": "POST",
+        "arguments":{
+        }
+    },
+    {
+        "pattern": "/v1/xfile/snapshot/page/list",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "opVer": {
+                "type": "int",
+                "min": 0,
+                "optional": 0
+            },
+            "pageMax":{
+                "type": "int",
+                "optional": 10,
+                "max": 1024
+            },
+            "pageIdx": {
+                "type": "int",
+                "min": 0,
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/lock",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "status": {
+                "type": "int",
+                "range": [0, 1]
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/lock/status",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    }
+]

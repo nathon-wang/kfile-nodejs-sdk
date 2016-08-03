@@ -1,0 +1,215 @@
+[
+    {
+        "pattern": "/v1/xfile/dir/share/root/create",
+        "method": "POST",
+        "arguments": {
+            "name": {
+                "type": "str",
+                "length": 255
+            },
+            "desc": {
+                "type": "str",
+                "optional": "",
+                "length": 255
+            },
+            "perm": {
+                "type": "jsonArray",
+                "format": {"user_xid": "int", "role": "int"},
+                "min": 1,
+                "max": 255
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/dir/share/create",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "name": {
+                "type": "str",
+                "length": 255
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/dir/cage/create",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "name": {
+                "type": "str",
+                "length": 255
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/dir/share/root/list",
+        "method": "POST",
+        "arguments":{
+            "sortBy": {
+                "type": "int"
+            },
+            "order":{
+                "type": "int",
+                "optional": 1,
+                "range": [-1, 1]
+            },
+            "pageMax":{
+                "type": "int",
+                "optional": 10,
+                "max": 50
+            },
+            "pageIdx": {
+                "type": "int",
+                "min": 0,
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/dir/share/dir/list",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/dir/share/page/list",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "mtype": {
+                "type": "int"
+            },
+            "sortBy": {
+                "type": "int"
+            },
+            "order": {
+                "type": "int",
+                "optional": 1,
+                "range": [-1, 1]
+            },
+            "pageMax":{
+                "type": "int",
+                "optional": 10,
+                "max": 255
+            },
+            "pageIdx": {
+                "type": "int",
+                "min": 0,
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/dir/cage/dir/list",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/dir/cage/page/list",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "mtype": {
+                "type": "int"
+            },
+            "sortBy": {
+                "type": "int"
+            },
+            "order": {
+                "type": "int",
+                "optional": 1,
+                "range": [-1, 1]
+            },
+            "pageMax":{
+                "type": "int",
+                "optional": 10,
+                "max": 255
+            },
+            "pageIdx": {
+                "type": "int",
+                "min": 0,
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/dir/share/role/list",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/dir/share/role/grant",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "perm": {
+                "type": "jsonArray",
+                "format": {"user_xid": "int", "role": "int"},
+                "length": 255
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/dir/share/role/validate",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "userXid": {
+                "type": "int",
+                "min": 1
+            },
+            "role": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/dir/share/role/deep/grant",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "perm": {
+                "type": "jsonArray",
+                "format": {"user_xid": "int", "role": "int"},
+                "length": 255
+            }
+        }
+    }
+]

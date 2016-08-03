@@ -1,0 +1,6 @@
+[{
+  "pattern": "v2/server/info",
+  "method": "PUT",
+  "arguments": {
+  }
+}]

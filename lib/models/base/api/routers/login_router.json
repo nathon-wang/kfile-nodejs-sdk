@@ -1,0 +1,190 @@
+[
+    {
+        "pattern":"/v1/account/auth/refresh_token",
+        "method":"POST",
+        "arguments":{
+            "alternative":{
+                "type":"str",
+                "length": 256,
+                "optional": ""
+            }
+        }
+    },
+    {
+        "pattern": "/v1/account/phone/bind",
+        "method": "POST",
+        "arguments":{
+            "userId": {
+                "type": "int",
+                "min": 1
+            },
+            "domainIdent": {
+                "type": "str",
+                "min": 1,
+                "max": 32
+            },
+            "phone": {
+                "type": "str"
+            }
+        }
+    },
+    {
+        "pattern": "/v1/account/email/bind",
+        "method": "POST",
+        "arguments":{
+            "userId": {
+                "type": "int",
+                "min": 1
+            },
+            "domainIdent": {
+                "type": "str",
+                "min": 1,
+                "max": 32
+            },
+            "email": {
+                "type": "str"
+            }
+        }
+    },
+    {
+        "pattern": "/v1/account/info/unbind",
+        "method": "POST",
+        "arguments":{
+            "userId": {
+                "type": "int",
+                "min": 1
+            },
+            "btype": {
+                "type": "str",
+                "range": [1, 2]
+            }
+        }
+    },
+    {
+        "pattern": "/v1/account/login",
+        "method": "POST",
+        "arguments":{
+            "loginType": {
+                "type": "int"
+            },
+            "loginTag": {
+                "type": "str",
+                "length": 128
+            },
+            "domainIdent": {
+                "type": "str",
+                "length": 32
+            },
+            "userPwd": {
+                "type": "str",
+                "length": 32
+            }
+        }
+    },
+    {
+        "pattern": "/v1/account/info",
+        "method": "POST",
+        "arguments":{
+        }
+    },
+    {
+        "pattern": "/v1/account/logout",
+        "method": "POST",
+        "arguments":{
+        }
+    },
+    {
+        "pattern": "/v1/account/validate",
+        "method": "POST",
+        "arguments":{
+            "vtype": {
+                "type": "int",
+                "range": [0, 1, 2]
+            },
+            "value":{
+                "type": "str",
+                "min": 1,
+                "max": 128
+            }
+        }
+    },
+    {
+        "pattern": "/v1/account/password/set",
+        "method": "POST",
+        "arguments":{
+            "oldPwd": {
+                "type": "str",
+                "length": 32,
+                "optional": ""
+            },
+            "newPwd":{
+                "type": "str",
+                "length": 32
+            },
+            "confirmPwd":{
+                "type": "str",
+                "length": 32
+            }
+        }
+    },
+    {
+        "pattern": "/v1/account/password/reset",
+        "method": "POST",
+        "arguments":{
+            "newPwd": {
+                "type": "str",
+                "length": 32
+            },
+            "confirmPwd":{
+                "type": "str",
+                "length": 32
+            }
+        }
+    },
+    {
+        "pattern": "/v1/account/password/modify",
+        "method": "POST",
+        "arguments":{
+            "user_id": {
+                "type": "int",
+                "min": 1
+            },
+            "newPwd": {
+                "type": "str",
+                "length": 32
+            },
+            "confirmPwd":{
+                "type": "str",
+                "length": 32
+            }
+        }
+    },
+    {
+        "pattern": "/v1/account/password/forget",
+        "method": "POST",
+        "arguments":{
+            "domainIdent": {
+                "type": "str",
+                "length": 32
+            },
+            "email": {
+                "type": "str",
+                "length": 128
+            }
+        }
+    },
+    {
+        "pattern": "/v1/account/lock",
+        "method": "POST",
+        "arguments":{
+            "user_id": {
+                "type": "int",
+                "min": 1
+            },
+            "lock": {
+                "type": "int",
+                "range": [1, 0]
+            }
+        }
+    }
+]

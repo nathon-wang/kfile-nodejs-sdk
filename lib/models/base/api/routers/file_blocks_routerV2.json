@@ -1,0 +1,200 @@
+[
+    {
+        "pattern": "/v2/xfile/file/upload/create",
+        "methods": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "name": {
+                "type": "str",
+                "length": 1024
+            },
+            "size": {
+                "type": "int",
+                "min": 0
+            },
+            "sha1": {
+                "type": "str",
+                "length": 255
+            },
+            "txId":{
+                "type":"int",
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v2/xfile/file/upload/exists",
+        "methods": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "size": {
+                "type": "int",
+                "min": 0
+            },
+            "sha1": {
+                "type": "str",
+                "length": 255
+            },
+            "txId":{
+                "type":"int",
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v2/xfile/file/upload/upsert",
+        "methods": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "name": {
+                "type": "str",
+                "length": 255
+            },
+            "size": {
+                "type": "int",
+                "min": 0
+            },
+            "sha1": {
+                "type": "str",
+                "length": 255
+            },
+            "txId":{
+                "type":"int",
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v2/xfile/file/upload/diff",
+        "methods": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "fileVer": {
+                "type": "int",
+                "min": 1
+            },
+            "blockInfo": {
+                "type": "jsonArray",
+                "format": {"i": "int", "w": "str", "s": "str", "z": "int:empty"},
+                "min": 1,
+                "max": 16
+            },
+            "txId":{
+                "type":"int",
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v2/xfile/file/block/upload/confirm",
+        "methods": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "fileVer": {
+                "type": "int",
+                "min": 1
+            },
+            "bid": {
+                "type": "int",
+                "min": 0
+            },
+            "weak": {
+                "type": "str",
+                "length": 255
+            },
+            "strong": {
+                "type": "str",
+                "length": 255
+            },
+            "stub": {
+                "type": "str",
+                "length": 255
+            }
+        }
+    },
+    {
+        "pattern": "/v2/xfile/file/upload/rollback",
+        "methods": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "fileVer": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v2/xfile/file/upload/commit",
+        "methods": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "fileVer": {
+                "type": "int",
+                "min": 1
+            },
+            "blockMax": {
+                "type": "int",
+                "min": 0
+            },
+            "txId":{
+                "type":"int",
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v2/xfile/file/download/prepare",
+        "methods": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "fileVer": {
+                "type": "int",
+                "min": -1,
+                "optional": -1
+            }
+        }
+    },
+    {
+        "pattern": "/v2/xfile/file/download/diff",
+        "methods": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "fileVer": {
+                "type": "int",
+                "min": 1
+            },
+            "bids": {
+                "type": "intArray",
+                "min": 1,
+                "max": 16
+            }
+        }
+    }
+]

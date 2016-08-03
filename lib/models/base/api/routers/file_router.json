@@ -1,0 +1,30 @@
+[
+    {
+        "pattern": "/v1/xfile/file/history/list",
+        "methods": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/file/history/remark",
+        "methods": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "fileVer": {
+                "type": "int",
+                "min": 1
+            },
+            "remark": {
+                "type": "str",
+                "length": 1024
+            }
+        }
+    }
+]

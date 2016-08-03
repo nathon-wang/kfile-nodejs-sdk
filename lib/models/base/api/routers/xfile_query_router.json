@@ -1,0 +1,95 @@
+[
+    {
+        "pattern": "/v1/xfile/share/archive/page/list",
+        "method": "POST",
+        "arguments":{
+            "order": {
+                "type": "int",
+                "optional": 1,
+                "range": [-1, 1]
+            },
+            "pageMax":{
+                "type": "int",
+                "optional": 10,
+                "max": 255
+            },
+            "pageIdx": {
+                "type": "int",
+                "min": 0,
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/cage/archive/page/list",
+        "method": "POST",
+        "arguments":{
+            "order": {
+                "type": "int",
+                "optional": 1,
+                "range": [-1, 1]
+            },
+            "pageMax":{
+                "type": "int",
+                "optional": 10,
+                "max": 255
+            },
+            "pageIdx": {
+                "type": "int",
+                "min": 0,
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/info",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/level/match",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "name": {
+                "type": "str",
+                "min": 1
+            },
+            "xtype": {
+                "type": "int"
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/level/search",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "name": {
+                "type": "str",
+                "min": 1
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/ancestor/list",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    }
+]
