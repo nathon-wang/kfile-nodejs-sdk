@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "append-stream": "^1.2.2",
+    "assert": "^1.4.1",
     "bluebird": "^3.4.1",
     "concat-files": "^0.1.0",
     "lodash": "^4.14.0",
@@ -10,5 +11,11 @@
     "request-progress": "^2.0.1",
     "through2": "^2.0.1",
     "tmp": "0.0.28"
+  },
+  "devDependencies": {
+    "mocha": "^3.0.0"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
   }
 }
