@@ -83,17 +83,13 @@ var loginedAccount = account.login({domain_ident: "dev.com", login_tag: "admin",
 describe('download a dir', function () {
     it('should download a directory', function (done) {
         loginedAccount.then(function (loginedUser) {
-            return loginedUser.shareHome.get_one_page()
-            .delay(1000)
-            .then(function (lstObj) {
-                return lstObj[0].download();
-            })
-            .then(function (snapshot) {
-                console.log(snapshot);
-                done();
-            });
+            return loginedUser.shareHome.get_one_page().delay(1000);
+        })
+        .then(function (lstObj) {
+            return lstObj[0].download();
         })
         .then(function () {
+            done();
         })
         .catch(function (error) {
             done(error);

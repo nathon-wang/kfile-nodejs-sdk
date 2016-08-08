@@ -1,7 +1,7 @@
 [
     {
         "pattern": "/v2/xfile/file/upload/create",
-        "methods": "POST",
+        "method": "POST",
         "arguments":{
             "xid": {
                 "type": "int",
@@ -27,7 +27,7 @@
     },
     {
         "pattern": "/v2/xfile/file/upload/exists",
-        "methods": "POST",
+        "method": "POST",
         "arguments":{
             "xid": {
                 "type": "int",
@@ -49,7 +49,7 @@
     },
     {
         "pattern": "/v2/xfile/file/upload/upsert",
-        "methods": "POST",
+        "method": "POST",
         "arguments":{
             "xid": {
                 "type": "int",
@@ -75,7 +75,7 @@
     },
     {
         "pattern": "/v2/xfile/file/upload/diff",
-        "methods": "POST",
+        "method": "POST",
         "arguments":{
             "xid": {
                 "type": "int",
@@ -99,7 +99,7 @@
     },
     {
         "pattern": "/v2/xfile/file/block/upload/confirm",
-        "methods": "POST",
+        "method": "POST",
         "arguments":{
             "xid": {
                 "type": "int",
@@ -129,7 +129,7 @@
     },
     {
         "pattern": "/v2/xfile/file/upload/rollback",
-        "methods": "POST",
+        "method": "POST",
         "arguments":{
             "xid": {
                 "type": "int",
@@ -143,7 +143,7 @@
     },
     {
         "pattern": "/v2/xfile/file/upload/commit",
-        "methods": "POST",
+        "method": "POST",
         "arguments":{
             "xid": {
                 "type": "int",
@@ -165,7 +165,7 @@
     },
     {
         "pattern": "/v2/xfile/file/download/prepare",
-        "methods": "POST",
+        "method": "POST",
         "arguments":{
             "xid": {
                 "type": "int",
@@ -180,7 +180,7 @@
     },
     {
         "pattern": "/v2/xfile/file/download/diff",
-        "methods": "POST",
+        "method": "POST",
         "arguments":{
             "xid": {
                 "type": "int",
