@@ -1,40 +1,102 @@
 var kfile = require("../lib/kfile"),
+    uuid = require('node-uuid');
     assert = require("assert");
 
-describe('Create SDK object and login as admin', function () {
-    var loginedUser;
-    var sdk = new kfile.KingFileSDK({host: "192.168.8.103", port: 80, device_id: "xxxxx"});
-    var account = sdk.account();
-    var loginedAccount = account.login({domain_ident: "dev.com", login_tag: "admin", password: "123456"});
+var loginedUser;
+var host = "192.168.8.103";
+var sdk = new kfile.KingFileSDK({host: host, port: 80, device_id: "xxxxx"});
+var account = sdk.account();
+var loginedAccount = account.login({domain_ident: "dev.com", login_tag: "admin", password: "123456"});
 
-    it('should create a share root', function () {
-        return loginedAccount.then(function (loginedUser) {
-            return loginedUser.shareHome.mkdir({
-                name: '11111',
-                perm: [{user_xid: loginedUser.rootDept.xid, role: kfile.Role.MANIPULATOR}]
+
+//describe('basic create & archive', function () {
+//    it('should create a share root and archive it', function (done) {
+//        loginedAccount.then(function (loginedUser) {
+//            return loginedUser.shareHome.mkdir({
+//                name: uuid.v1(),
+//                perm: [{user_xid: loginedUser.rootDept.xid, role: kfile.Role.MANIPULATOR}]
+//            })
+//            .then(function (kdir) {
+//                return kdir.archive();
+//            });
+//        })
+//        .then(function () {
+//            done();
+//        })
+//        .catch(function (error) {
+//            done(error);
+//        });
+//    });
+//});
+//
+//describe('basic create & archive', function () {
+//    it('should create a share root and rename it', function (done) {
+//        var name = uuid.v1();
+//        this.timeout(5000);
+//        loginedAccount.then(function (loginedUser) {
+//            return loginedUser.shareHome.mkdir({
+//                name: name,
+//                perm: [{user_xid: loginedUser.rootDept.xid, role: kfile.Role.MANIPULATOR}]
+//            })
+//            .delay(1000)
+//            .then(function (kdir) {
+//                return kdir.rename(name + '_rename');
+//            })
+//            .then(function (kdir) {
+//                return kdir.archive();
+//            });
+//        })
+//        .then(function () {
+//            done();
+//        })
+//        .catch(function (error) {
+//            done(error);
+//        });
+//    });
+//});
+//
+//describe('basic create & archive', function () {
+//    it('should create a share root and remove it', function (done) {
+//        var name = uuid.v1();
+//        loginedAccount.then(function (loginedUser) {
+//            return loginedUser.shareHome.mkdir({
+//                name: name,
+//                perm: [{user_xid: loginedUser.rootDept.xid, role: kfile.Role.MANIPULATOR}]
+//            })
+//            .delay(1000)
+//            .then(function (kdir) {
+//                return kdir.archive();
+//            })
+//            .then(function (kdir) {
+//                return kdir.remove();
+//            });
+//        })
+//        .then(function () {
+//            done();
+//        })
+//        .catch(function (error) {
+//            done(error);
+//        });
+//    });
+//});
+//
+describe('download a dir', function () {
+    it('should download a directory', function (done) {
+        loginedAccount.then(function (loginedUser) {
+            return loginedUser.shareHome.get_one_page()
+            .delay(1000)
+            .then(function (lstObj) {
+                return lstObj[0].download();
             })
-            .catch(function (error) {
+            .then(function (snapshot) {
+                console.log(snapshot);
+                done();
             });
-        });
-    });
-
-    it('should get a share root list', function () {
-        return loginedAccount.then(function (loginedUser) {
-            return loginedUser.shareHome.mkdir({
-                name: 'wwwwww',
-                perm: [{user_xid: loginedUser.rootDept.xid, role: kfile.Role.MANIPULATOR}]
-            });
-        });
-    });
-
-    it('should login server and get a user object', function () {
-        return loginedAccount
-        .then(function(loginedUser) {
-            loginedUser
-            .shareHome.info()
-            .then(function (data) {
-            });
+        })
+        .then(function () {
+        })
+        .catch(function (error) {
+            done(error);
         });
     });
 });
-
