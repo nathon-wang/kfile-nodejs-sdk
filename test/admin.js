@@ -3,10 +3,10 @@ var kfile = require("../lib/kfile"),
     assert = require("assert");
 
 var loginedUser;
-var host = "192.168.8.103";
-var sdk = new kfile.KingFileSDK({host: host, port: 80, device_id: "xxxxx"});
+var host = "192.168.140.124";
+var sdk = new kfile.KingFileSDK({host: host, port: 80});
 var account = sdk.account();
-var loginedAccount = account.login({domain_ident: "dev.com", login_tag: "admin", password: "123456"});
+var loginedAccount = account.login({domain_ident: "ceshi001", login_tag: "admin", password: "123456"});
 
 
 //describe('basic create & archive', function () {
@@ -28,7 +28,7 @@ var loginedAccount = account.login({domain_ident: "dev.com", login_tag: "admin",
 //        });
 //    });
 //});
-//
+
 //describe('basic create & archive', function () {
 //    it('should create a share root and rename it', function (done) {
 //        var name = uuid.v1();
@@ -79,7 +79,7 @@ var loginedAccount = account.login({domain_ident: "dev.com", login_tag: "admin",
 //        });
 //    });
 //});
-//
+
 describe('download a dir', function () {
     it('should download a directory', function (done) {
         loginedAccount.then(function (loginedUser) {
