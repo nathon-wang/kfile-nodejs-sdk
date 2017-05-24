@@ -228,7 +228,7 @@
         }
     },
     {
-        "pattern": "/v1/xfile/snapshot/page/list",
+        "pattern": "/v2/xfile/snapshot/page/list",
         "method": "POST",
         "arguments":{
             "xid": {
@@ -245,7 +245,7 @@
                 "optional": 10,
                 "max": 1024
             },
-            "pageIdx": {
+            "hint": {
                 "type": "int",
                 "min": 0,
                 "optional": 0
