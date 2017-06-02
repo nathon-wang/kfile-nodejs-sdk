@@ -21,15 +21,15 @@ var kfile = require("../lib/kfile"),
 
 	]);
 
-	var args = parser.parseArgs();
+	var args = parser.parse();
 	if (args.target === null) {
-		console.log('you must specify the files you want to upload');
+		console.log('Use -h|--help option for help');
 		process.exit(-1);
 	} else if (args.path === null && args.id === null) {
-		console.log('you must specify the kingfile location you want to upload');
+		console.log('Use -h|--help option for help');
 		process.exit(-1);
 	} else {
-		helper.loginProtected(function () {
+		helper.loginProtected(function (Account) {
 			Account.then(function (loginedAccount) {
 				var remote_location = args.id || args.path;
 				if (!remote_location) {
@@ -39,10 +39,11 @@ var kfile = require("../lib/kfile"),
 				}
 			})
 			.then(function (fileObj) {
-				return fileObj.upload(args.target);
+				return fileObj.upload({path: args.target});
 			})
 			.then(function () {
-				console.log('upload complete!!');
+				console.log('Upload complete!!');
+				process.exit(0);
 			})
 			.catch(function (error) {
 				console.error(error);
