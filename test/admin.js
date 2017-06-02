@@ -84,10 +84,12 @@ describe('download a dir', function () {
     it('should download a directory', function (done) {
         this.timeout(5000);
         loginedAccount.then(function (loginedUser) {
-            return loginedUser.shareHome.get_one_page().delay(1000);
+            return loginedUser.XFile.info(8589934595);
+            //return loginedUser.shareHome.get_one_page().delay(1000);
         })
-        .then(function (lstObj) {
-            return lstObj[0].download();
+        .then(function (fileObj) {
+            return fileObj.download();
+            //return lstObj[0].download();
         })
         .then(function () {
             done();

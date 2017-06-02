@@ -2,7 +2,8 @@
 var kfile = require("../lib/kfile"),
     ArgumentParser = require("argparse").ArgumentParser,
     fs = require("fs"),
-    LOGIN_INFO_FILE = './logined_info';
+    _ = require("lodash"),
+    LOGIN_INFO_FILE = './.logined_info';
 
 function login(args) {
 	var sdk = new kfile.KingFileSDK({host: args.host, port: args.port||80}),
@@ -10,7 +11,8 @@ function login(args) {
 		loginedAccount = account.login({domain_ident: args.ident, login_tag: args.user, password: args.pass});
 
 	loginedAccount.then(function (loginedAccount) {
-		fs.writeFile('./.logined_info', JSON.stringify(loginedAccount.properties, null, 4), function(error) {
+		var info = _.merge(loginedAccount.properties, {host: args.host, port: args.port||80});
+		fs.writeFile('./.logined_info', JSON.stringify(info, null, 4), function(error) {
 			if (error) {
 			}
 		});
@@ -41,7 +43,7 @@ function main() {
 	);
 	parser.addArgument(
 		['-f', '--force'],
-		{help: 'force login'}
+		{help: 'force login', defaultValue: false}
 	);
 
 	var args = parser.parseArgs();
@@ -50,12 +52,12 @@ function main() {
 			login();
 		});
 	} else {
-		fs.readFile(LOGIN_INFO_FILE, function(buffer, error) {
+		fs.readFile(LOGIN_INFO_FILE, function(error, buffer) {
 			if (error) {
 				login();
 			} else {
-				var login_info = JSON.parse(buffer.toString());
-				if (login_info.token) {
+				var logined_info = JSON.parse(buffer.toString());
+				if (logined_info.token) {
 					console.log(logined_info);
 				} else {
 					login();
