@@ -14,7 +14,8 @@
     "request": "^2.74.0",
     "request-progress": "^2.0.1",
     "through2": "^2.0.1",
-    "tmp": "0.0.28"
+    "tmp": "0.0.28",
+    "tracer": "^0.8.9"
   },
   "devDependencies": {
     "mocha": "^3.0.0",
