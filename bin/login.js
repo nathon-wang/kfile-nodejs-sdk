@@ -7,7 +7,7 @@ var kfile = require("../lib/kfile"),
 
 (function main() {
 	function login(args) {
-		var sdk = new kfile.KingFileSDK({host: args.host, port: args.port||80}),
+		var sdk = new kfile.KingFileSDK({host: args.host, port: args.port||80, debug: args.debug}),
 			account = sdk.account(),
 			loginedAccount = account.login({domain_ident: args.ident, login_tag: args.user, password: args.pass});
 
@@ -15,7 +15,8 @@ var kfile = require("../lib/kfile"),
 			var info = _.merge(loginedAccount.properties, {host: args.host, port: args.port||80});
 			helper.saveLoginInfo(info, function (error) {
 				if (error) {
-					console.log(error);
+					console.log(error.stack);
+					process.exit(-1);
 				}
 			});
 		});
@@ -46,8 +47,11 @@ var kfile = require("../lib/kfile"),
 		[
 			['-f', '--force'],
 			{help: 'force login', nargs: 0, defaultValue: null}
+		],
+		[
+			['-d', '--debug'],
+			{help: 'debug mode, print detailed api call info', nargs: 0, defaultValue: 0}
 		]
-
 	]);
 
 	var args = parser.parse();

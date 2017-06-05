@@ -18,6 +18,10 @@ var kfile = require("../lib/kfile"),
 			['-t', '--target'],
 			{help: 'the target file or directory what you want to upload'}
 		],
+		[
+			['-d', '--debug'],
+			{help: 'debug mode, print detailed api call info', nargs: 0}
+		]
 
 	]);
 
@@ -29,7 +33,7 @@ var kfile = require("../lib/kfile"),
 		console.log('Use -h|--help option for help');
 		process.exit(-1);
 	} else {
-		helper.loginProtected(function (Account) {
+		helper.loginProtected(args)(function (Account) {
 			Account.then(function (loginedAccount) {
 				var remote_location = args.id || args.path;
 				if (!remote_location) {
@@ -46,7 +50,8 @@ var kfile = require("../lib/kfile"),
 				process.exit(0);
 			})
 			.catch(function (error) {
-				console.error(error);
+				console.error(error.stack);
+				process.exit(-1);
 			});
 		});
 	}

@@ -32,24 +32,26 @@ MyArgumentParser.prototype.parse = function () {
 
 exports.MyArgumentParser = MyArgumentParser;
 
-function loginProtected(operation) {
-	fs.readFile(LOGIN_INFO_FILE, function(error, buffer) {
-		if (error) {
-			console.error('not login!!!');
-			process.exit(-1);
-		} else {
-			var login_info = JSON.parse(buffer.toString());
-			if (login_info.token) {
-				var sdk = new kfile.KingFileSDK({host: login_info.host, port: login_info.port||80}),
-					account = sdk.account(),
-					Account = account.login({token: login_info.token});
-				operation(Account);
-			} else {
+function loginProtected(args) {
+	return function (operation) {
+		fs.readFile(LOGIN_INFO_FILE, function(error, buffer) {
+			if (error) {
 				console.error('not login!!!');
-				process.exit.exit(-1);
+				process.exit(-1);
+			} else {
+				var login_info = JSON.parse(buffer.toString());
+				if (login_info.token) {
+					var sdk = new kfile.KingFileSDK({host: login_info.host, port: login_info.port||80, debug: args.debug === null ? 0 : 1}),
+						account = sdk.account(),
+						Account = account.login({token: login_info.token});
+					operation(Account);
+				} else {
+					console.error('not login!!!');
+					process.exit.exit(-1);
+				}
 			}
-		}
-	});
+		});
+	};
 }
 
 exports.loginProtected = loginProtected;

@@ -5,14 +5,18 @@ var kfile = require("../lib/kfile"),
 (function () {
 	var parser = new helper.MyArgumentParser();
 	parser.set_options([
-			[
-				['-p', '--path'],
-				{help: 'download file by path'}
-			],
-			[
-				['-i', '--id'],
-				{help: 'download file by id'}
-			]
+		[
+			['-p', '--path'],
+			{help: 'download file by path'}
+		],
+		[
+			['-i', '--id'],
+			{help: 'download file by id'}
+		],
+		[
+			['-d', '--debug'],
+			{help: 'debug mode, print detailed api call info', nargs: 0, defaultValue: 0}
+		]
 
 	]);
 	var args = parser.parse();
@@ -21,7 +25,7 @@ var kfile = require("../lib/kfile"),
 		process.exit(-1);
 
 	} else {
-		helper.loginProtected(function (Account) {
+		helper.loginProtected(args)(function (Account) {
 			Account.then(function (loginedAccount) {
 				var remote_location = args.id || args.path;
 				if (!remote_location) {
