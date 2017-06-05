@@ -41,7 +41,7 @@ function loginProtected(args) {
 			} else {
 				var login_info = JSON.parse(buffer.toString());
 				if (login_info.token) {
-					var sdk = new kfile.KingFileSDK({host: login_info.host, port: login_info.port||80, debug: args.debug === null ? 0 : 1}),
+					var sdk = new kfile.KingFileSDK({host: login_info.host, port: login_info.port||80, debug: args.debug === 0 ? 0 : 1}),
 						account = sdk.account(),
 						Account = account.login({token: login_info.token});
 					operation(Account);
