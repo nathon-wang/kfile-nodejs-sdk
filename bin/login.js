@@ -1,4 +1,5 @@
-#! env node
+#!/usr/bin/env node
+
 var kfile = require("../lib/kfile"),
     ArgumentParser = require("argparse").ArgumentParser,
     fs = require("fs"),
