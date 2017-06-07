@@ -13,7 +13,7 @@ var kfile = require("../lib/kfile"),
 			loginedAccount = account.login({domain_ident: args.ident, login_tag: args.user, password: args.pass});
 
 		loginedAccount.then(function (loginedAccount) {
-			var info = _.merge(loginedAccount.properties, {host: args.host, port: args.port||80});
+			var info = _.merge(loginedAccount.properties, {host: args.host, port: args.port||80, user_agent:sdk.user_agent});
 			helper.saveLoginInfo(info, function (error) {
 				if (error) {
 					console.log(error.stack);

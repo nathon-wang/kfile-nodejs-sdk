@@ -1,6 +1,7 @@
 var express = require('express'),
 timeout = require('connect-timeout'),
 kfile = require('../lib/kfile'),
+task = require('../task'),
 helper = require('./helper');
 
 function login(req, res, debug) {
@@ -30,49 +31,22 @@ function login(req, res, debug) {
 function upload(req, res, debug) {
     var xid = req.query.xid,
     local_path = req.file.path;
-    helper.loginProtected({debug: debug})(function (Account) {
-            Account.then(function (loginedAccount) {
-                    if (!xid) {
-                            throw new Error("Remote location is not specified!!!");
-                    } else {
-                            return loginedAccount.XFile.info(xid);
-                    }
-            })
-            .then(function (fileObj) {
-                    return fileObj.upload({path: local_path});
-            })
-            .then(function () {
-                res.end();
-            })
-            .catch(function (error) {
-                res.status(500);
-                res.end();
-            });
+    task.Upload({debug: debug, id: xid, path: local_path}, function () {
+            res.end();
+    }, function (error) {
+            res.status(500);
+            res.end();
     });
 }
 
 function download(req, res, debug) {
     var xid = req.query.xid,
     file_version = req.query.fileVer;
-
-    helper.loginProtected({debug: debug})(function (Account) {
-            Account.then(function (loginedAccount) {
-                    if (!xid) {
-                            throw new Error("Remote location is not specified!!!");
-                    } else {
-                            return loginedAccount.XFile.info(xid);
-                    }
-            })
-            .then(function (fileObj) {
-                return fileObj.download();
-            })
-            .then(function () {
-                res.end();
-            })
-            .catch(function (error) {
-                res.status(500);
-                res.end();
-            });
+    task.Download({debug: debug, id: xid, version: file_version}, function () {
+            res.end();
+    }, function (error) {
+            res.status(500);
+            res.end();
     });
 }
 

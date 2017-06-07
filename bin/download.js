@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var kfile = require("../lib/kfile"),
+var Download = require("./task").Download,
     helper = require("./helper");
 
 (function () {
@@ -15,6 +15,10 @@ var kfile = require("../lib/kfile"),
 			{help: 'download file by id'}
 		],
 		[
+			['-v', '--version'],
+			{help: 'download file of target version'}
+		],
+		[
 			['-d', '--debug'],
 			{help: 'debug mode, print detailed api call info', action: 'storeTrue'}
 		]
@@ -24,27 +28,12 @@ var kfile = require("../lib/kfile"),
 	if (args.path === null && args.id === null) {
 		console.log("Use option -h|--help get help info");
 		process.exit(0);
-
-	} else {
-		helper.loginProtected(args)(function (Account) {
-			Account.then(function (loginedAccount) {
-				var remote_location = args.id || args.path;
-				if (!remote_location) {
-					throw new Error("Remote location is not specified!!!");
-				} else {
-					return loginedAccount.XFile.info(remote_location);
-				}
-			})
-			.then(function (fileObj) {
-				return fileObj.download();
-			})
-			.then(function () {
-				console.log('Download complete!!');
-			})
-			.catch(function (error) {
-				console.error(error);
-			});
-		});
 	}
+	Download(args, function () {
+		console.log('Download complete!!');
+	}, function (error) {
+		console.error(error.stack);
+		process.exit(-1);
+	});
 })();
 
