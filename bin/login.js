@@ -56,6 +56,11 @@ var kfile = require("../lib/kfile"),
 	]);
 
 	var args = parser.parse();
+	if (args.host === null || args.user === null || args.pass === null || args.ident === null) {
+		console.log("Use option -h|--help get help info");
+		process.exit(0);
+	}
+
 	if (args.force !== null) {
 		helper.forceLogin(function () {
 			login(args);

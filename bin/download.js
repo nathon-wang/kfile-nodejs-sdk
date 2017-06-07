@@ -22,8 +22,8 @@ var kfile = require("../lib/kfile"),
 	]);
 	var args = parser.parse();
 	if (args.path === null && args.id === null) {
-		console.log('path && id can\'t be null both');
-		process.exit(-1);
+		console.log("Use option -h|--help get help info");
+		process.exit(0);
 
 	} else {
 		helper.loginProtected(args)(function (Account) {

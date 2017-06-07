@@ -27,33 +27,29 @@ var kfile = require("../lib/kfile"),
 	]);
 
 	var args = parser.parse();
-	if (args.target === null) {
+	if (args.target === null || args.path === null && args.id === null) {
 		console.log('Use -h|--help option for help');
-		process.exit(-1);
-	} else if (args.path === null && args.id === null) {
-		console.log('Use -h|--help option for help');
-		process.exit(-1);
-	} else {
-		helper.loginProtected(args)(function (Account) {
-			Account.then(function (loginedAccount) {
-				var remote_location = args.id || args.path;
-				if (!remote_location) {
-					throw new Error("Remote location is not specified!!!");
-				} else {
-					return loginedAccount.XFile.info(remote_location);
-				}
-			})
-			.then(function (fileObj) {
-				return fileObj.upload({path: args.target});
-			})
-			.then(function () {
-				console.log('Upload complete!!');
-				process.exit(0);
-			})
-			.catch(function (error) {
-				console.error(error.stack);
-				process.exit(-1);
-			});
-		});
+		process.exit(0);
 	}
+	helper.loginProtected(args)(function (Account) {
+		Account.then(function (loginedAccount) {
+			var remote_location = args.id || args.path;
+			if (!remote_location) {
+				throw new Error("Remote location is not specified!!!");
+			} else {
+				return loginedAccount.XFile.info(remote_location);
+			}
+		})
+		.then(function (fileObj) {
+			return fileObj.upload({path: args.target});
+		})
+		.then(function () {
+			console.log('Upload complete!!');
+			process.exit(0);
+		})
+		.catch(function (error) {
+			console.error(error.stack);
+			process.exit(-1);
+		});
+	});
 })();
