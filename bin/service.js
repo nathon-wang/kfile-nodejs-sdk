@@ -18,17 +18,18 @@ var App = require('./app').App,
 
 	]);
 
-	var args = parser.parse();
-	if (args.debug) {
+	var args = parser.parse(),
+	options = {port: args.port||8080, debug: args.debug};
+	if (!args.debug) {
 		if (cluster.isMaster) {
 		    var cpuCount = require('os').cpus().length;
 		    for (var i = 0; i < cpuCount; i += 1) {
 			cluster.fork();
 		    }
 		} else {
-		    (new App({port: args.port||80})).start();
+		    (new App(options)).start();
 		}
 	} else {
-		(new App({port: args.port||80})).start();
+		(new App(options)).start();
 	}
 })();

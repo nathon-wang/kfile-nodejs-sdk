@@ -1,7 +1,7 @@
 var express = require('express'),
 timeout = require('connect-timeout'),
 kfile = require('../lib/kfile'),
-task = require('../task'),
+task = require('./task'),
 helper = require('./helper');
 
 function login(req, res, debug) {
@@ -62,18 +62,18 @@ function App (options) {
     }
     this.app = express();
     this.app.post('/kfile/login', function (req, res) {
-        login(req, res, this.options.debug);
+        login(req, res, _this.options.debug);
     });
     this.app.post('/kfile/file/upload', function (req, res) {
-        upload(req, res, this.options.debug);
+        upload(req, res, _this.options.debug);
     });
     this.app.get('/kfile/file/download', timeout('3600s'), haltOnTimedout, function (req, res) {
-        download(req, res, this.options.debug);
+        download(req, res, _this.options.debug);
     });
 }
 
 App.prototype.start = function () {
-    console.log('Kingfile Local Proxy Service listening @ ', this.options.port);
+    console.log('Kingfile Local Proxy Service listening @ ', this.options.port, this.options.debug ? ' in debug mode': '');
     this.app.listen(this.options.port);
 };
 
