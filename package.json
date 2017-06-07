@@ -5,6 +5,7 @@
     "append-stream": "^1.2.2",
     "argparse": "^1.0.9",
     "assert": "^1.4.1",
+    "async": "^2.4.1",
     "bluebird": "^3.4.1",
     "concat-files": "^0.1.0",
     "fs-extra": "^3.0.1",
