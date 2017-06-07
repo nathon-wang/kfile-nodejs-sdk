@@ -4,25 +4,10 @@ var kfile = require("../lib/kfile"),
     ArgumentParser = require("argparse").ArgumentParser,
     fs = require("fs"),
     _ = require("lodash"),
+    task = require("./task"),
     helper = require("./helper");
 
 (function main() {
-	function login(args) {
-		var sdk = new kfile.KingFileSDK({host: args.host, port: args.port||80, debug: args.debug}),
-			account = sdk.account(),
-			loginedAccount = account.login({domain_ident: args.ident, login_tag: args.user, password: args.pass});
-
-		loginedAccount.then(function (loginedAccount) {
-			var info = _.merge(loginedAccount.properties, {host: args.host, port: args.port||80, user_agent:sdk.user_agent});
-			helper.saveLoginInfo(info, function (error) {
-				if (error) {
-					console.log(error.stack);
-					process.exit(-1);
-				}
-			});
-		});
-	}
-
 	var parser = new helper.MyArgumentParser();
 	parser.set_options([
 		[
@@ -63,11 +48,21 @@ var kfile = require("../lib/kfile"),
 
 	if (args.force !== null) {
 		helper.forceLogin(function () {
-			login(args);
+			Login(args, function (info) {
+				console.log(info);
+			}, function(error) {
+				console.log(error.stack);
+				process.exit(-1);
+			});
 		});
 	} else {
 		helper.loadLoginInfo(function () {
-			login(args);
+			Login(args, function (info) {
+				console.log(info);
+			}, function(error) {
+				console.log(error.stack);
+				process.exit(-1);
+			});
 		}, function (logined_info) {
 			console.log(logined_info);
 		});

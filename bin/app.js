@@ -1,5 +1,6 @@
 var express = require('express'),
 timeout = require('connect-timeout'),
+_ = require('lodash'),
 kfile = require('../lib/kfile'),
 task = require('./task'),
 helper = require('./helper');
@@ -8,32 +9,25 @@ function login(req, res, debug) {
     var host = req.query.host,
     port = req.query.port || 80,
     ident = req.query.ident,
-    pass = req.file.pass,
-    user = req.file.user,
-    sdk = new kfile.KingFileSDK({host: host, port: port, debug: debug}),
-    account = sdk.account(),
-    loginedAccount = account.login({domain_ident: ident, login_tag: user, password: pass});
-
-    loginedAccount.then(function (loginedAccount) {
-            var info = _.merge(loginedAccount.properties, {host: args.host, port: args.port||80});
-            helper.saveLoginInfo(info, function (error) {
-            if (error) {
-                console.log(error.stack);
-                res.status(500);
-                res.end();
-            } else {
-                res.end();
-            }
-        });
+    pass = req.query.pass,
+    user = req.query.user;
+    task.Login({host: host, port: port, ident: ident, pass: pass, user: user, debug: debug}, function (info) {
+        res.end(JSON.stringify(info));
+    }, function (error) {
+        console.error(error.stack);
+        res.status(500);
+        res.end();
     });
 }
 
 function upload(req, res, debug) {
     var xid = req.query.xid,
-    local_path = req.file.path;
-    task.Upload({debug: debug, id: xid, path: local_path}, function () {
+    local_path = req.query.path;
+    console.log('xxxxxxx', local_path);
+    task.Upload({debug: debug, id: xid, target: local_path}, function () {
             res.end();
     }, function (error) {
+            console.error(error.stack);
             res.status(500);
             res.end();
     });
@@ -45,6 +39,7 @@ function download(req, res, debug) {
     task.Download({debug: debug, id: xid, version: file_version}, function () {
             res.end();
     }, function (error) {
+            console.error(error.stack);
             res.status(500);
             res.end();
     });

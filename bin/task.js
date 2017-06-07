@@ -1,4 +1,5 @@
-var kfile = require("../lib/kfile"),
+var _ = require("lodash"),
+    kfile = require("../lib/kfile"),
     helper = require("./helper");
 
 
@@ -50,3 +51,25 @@ function download(args, succeed, failed) {
 }
 
 exports.Download = download;
+
+function login(args, succeed, failed) {
+	var sdk = new kfile.KingFileSDK({host: args.host, port: args.port||80, debug: args.debug}),
+		account = sdk.account(),
+		loginedAccount = account.login({domain_ident: args.ident, login_tag: args.user, password: args.pass});
+
+	loginedAccount.then(function (loginedAccount) {
+		var info = _.merge(loginedAccount.properties, {host: args.host, port: args.port||80, user_agent:sdk.user_agent});
+		helper.saveLoginInfo(info, function (error) {
+			if (error) {
+				failed(error);
+			} else {
+				succeed(info);
+			}
+		});
+	})
+	.catch(function (error) {
+		failed(error);
+	});
+}
+
+exports.Login = login;
