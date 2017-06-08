@@ -23,7 +23,6 @@ function login(req, res, debug) {
 function upload(req, res, debug) {
     var xid = req.query.xid,
     local_path = req.query.path;
-    console.log('xxxxxxx', local_path);
     task.Upload({debug: debug, id: xid, target: local_path}, function () {
             res.end();
     }, function (error) {

@@ -4,7 +4,7 @@ var kfile = require("../lib/kfile"),
     ArgumentParser = require("argparse").ArgumentParser,
     fs = require("fs"),
     _ = require("lodash"),
-    task = require("./task"),
+    Login = require("./task").Login,
     helper = require("./helper");
 
 (function main() {
