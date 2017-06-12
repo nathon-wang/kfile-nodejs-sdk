@@ -1,5 +1,23 @@
 [
     {
+        "pattern": "/v2/xfile/file/transfer/shakehand",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "clientKey": {
+                "type": "str",
+                "length": 32
+            },
+            "clientTime": {
+                "type": "int",
+                "min": 1
+            }
+        }
+    },
+    {
         "pattern": "/v2/xfile/file/upload/create",
         "method": "POST",
         "arguments":{

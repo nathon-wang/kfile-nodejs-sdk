@@ -58,10 +58,7 @@ exports.loginProtected = loginProtected;
 
 function forceLogin(not_logined_func) {
 	fs.unlink(LOGIN_INFO_FILE, function (error) {
-		if (error) {
-		} else {
-			not_logined_func();
-		}
+		not_logined_func();
 	});
 }
 
