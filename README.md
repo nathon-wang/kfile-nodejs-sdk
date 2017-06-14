@@ -2,7 +2,12 @@
 
 #### 安装
 
-npm install -g kingfile
+yum install libffi-devel
+yum install gcc
+yum install gcc-c++
+
+npm install -g node-gyp
+npm install -g --unsafe-perm kingfile
 
 #### 直接调用SDK
 
