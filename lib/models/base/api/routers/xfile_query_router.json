@@ -21,6 +21,20 @@
         }
     },
     {
+        "pattern": "/v1/xfile/path/find",
+        "method": "POST",
+        "arguments":{
+            "path": {
+                "type": "string",
+                "min": 1,
+                "max": 1024
+            },
+            "isShare": {
+                "type": "int"
+            }
+        }
+    },
+    {
         "pattern": "/v1/xfile/cage/archive/page/list",
         "method": "POST",
         "arguments":{
