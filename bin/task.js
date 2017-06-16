@@ -1,5 +1,6 @@
 var _ = require("lodash"),
     kfile = require("../lib/kfile"),
+    crypto = require("crypto"),
     helper = require("./helper");
 
 
@@ -59,6 +60,8 @@ function login(args, succeed, failed) {
 
 	loginedAccount.then(function (loginedAccount) {
 		var info = _.merge(loginedAccount.properties, {host: args.host, port: args.port||80, user_agent:sdk.user_agent});
+		var info_key = crypto.createHash('md5').update(JSON.stringify(info)).digest('hex').toString();
+		info.info_key = info_key;
 		helper.saveLoginInfo(info, function (error) {
 			if (error) {
 				failed(error);

@@ -11,6 +11,10 @@ var Upload = require('./task').Upload;
 			{help: 'the upload directory path of kingfile netdisk'}
 		],
 		[
+			['-k', '--key'],
+			{help: 'specify the login key'}
+		],
+		[
 			['-i', '--id'],
 			{help: 'the upload directory id of kingfile netdisk'}
 		],

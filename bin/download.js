@@ -15,6 +15,10 @@ var Download = require("./task").Download,
 			{help: 'download file by id'}
 		],
 		[
+			['-k', '--key'],
+			{help: 'specify the login key'}
+		],
+		[
 			['-v', '--version'],
 			{help: 'download file of target version'}
 		],

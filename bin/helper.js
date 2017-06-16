@@ -1,6 +1,7 @@
 var kfile = require("../lib/kfile"),
     fs = require("fs"),
     ArgumentParser = require('argparse').ArgumentParser,
+    _ = require("lodash"),
     login_info_file = '.logined_info',
     login_config = '/etc/kingfile.conf',
     login_info_directory;
@@ -39,15 +40,40 @@ function loginProtected(args) {
 				console.error('not login!!!');
 				process.exit(-1);
 			} else {
-				var login_info = JSON.parse(buffer.toString());
-				if (login_info.token) {
-					var sdk = new kfile.KingFileSDK({host: login_info.host, port: login_info.port||80, debug: args.debug, user_agent: login_info.user_agent}),
-						account = sdk.account(),
-						Account = account.login({token: login_info.token});
-					operation(Account);
-				} else {
+				var data = buffer.toString(), login_info_arr, login_info;
+				if (!data) {
 					console.error('not login!!!');
-					process.exit.exit(-1);
+					process.exit(-1);
+				}
+
+				try {
+					login_info_arr = JSON.parse(buffer.toString());
+					if (args.key) {
+						login_info = _.find(login_info_arr, function(item) {
+							if (item.info_key === args.key) {
+								return item;
+							}
+						});
+
+					} else {
+						login_info = login_info_arr[0];
+					}
+					if(!login_info) {
+						console.error('not login!!!');
+						process.exit(-1);
+					}
+					if (login_info.token) {
+						var sdk = new kfile.KingFileSDK({host: login_info.host, port: login_info.port||80, debug: args.debug, user_agent: login_info.user_agent}),
+							account = sdk.account(),
+							Account = account.login({token: login_info.token});
+						operation(Account);
+					} else {
+						console.error('not login!!!');
+						process.exit(-1);
+					}
+				} catch (e) {
+					console.error('not login!!!');
+					process.exit(-1);
 				}
 			}
 		});
@@ -82,8 +108,26 @@ function loadLoginInfo(not_logined_func, logined_func) {
 exports.loadLoginInfo = loadLoginInfo;
 
 function saveLoginInfo(login_info, callback) {
-	fs.writeFile(LOGIN_INFO_FILE, JSON.stringify(login_info, null, 4), function(error) {
-		callback(error);
+	fs.readFile(LOGIN_INFO_FILE, function (error, buffer) {
+		var content = [login_info];
+		if (!error) {
+			var data = buffer.toString(), idx;
+			if(data) {
+				var logined_info_arr = JSON.parse(data);
+				logined_info_arr.forEach(function (index, item) {
+					if(item.user_id == login_info.user_id) {
+						idx = index;
+					}
+				});
+				if (idx !== undefined) {
+					logined_info_arr.splice(idx, 1);
+				}
+				logined_info_arr.push(login_info);
+			}
+		}
+		fs.writeFile(LOGIN_INFO_FILE, JSON.stringify(content, null, 4), function(error) {
+			callback(error);
+		});
 	});
 }
 
