@@ -113,16 +113,14 @@ function saveLoginInfo(login_info, callback) {
 		if (!error) {
 			var data = buffer.toString(), idx;
 			if(data) {
-				var logined_info_arr = JSON.parse(data);
-				logined_info_arr.forEach(function (index, item) {
-					if(item.user_id == login_info.user_id) {
-						idx = index;
+				var logined_info_arr = JSON.parse(data), new_logined_info_arr = [];
+				for (var i=0, len=logined_info_arr.length; i < len; i++) {
+					if (logined_info_arr[i].user_id != login_info.user_id) {
+						new_logined_info_arr.push(logined_info_arr[i]);
 					}
-				});
-				if (idx !== undefined) {
-					logined_info_arr.splice(idx, 1);
 				}
-				logined_info_arr.push(login_info);
+				new_logined_info_arr.push(login_info);
+				content = new_logined_info_arr;
 			}
 		}
 		fs.writeFile(LOGIN_INFO_FILE, JSON.stringify(content, null, 4), function(error) {
