@@ -8,7 +8,7 @@ var Upload = require('./task').Upload;
 	parser.set_options([
 		[
 			['-p', '--path'],
-			{help: 'the upload directory path of kingfile netdisk'}
+			{help: 'upload file by path, share path begin with share(/share/path/to/upload), cage path begin with cage./cage/path/to/upload'}
 		],
 		[
 			['-k', '--key'],

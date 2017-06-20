@@ -8,7 +8,7 @@ var Download = require("./task").Download,
 	parser.set_options([
 		[
 			['-p', '--path'],
-			{help: 'download file by path'}
+			{help: 'download file by path, share path begin with share(/share/path/to/download), cage path begin with cage./cage/path/to/download'}
 		],
 		[
 			['-i', '--id'],
