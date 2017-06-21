@@ -19,9 +19,11 @@ var myAccount = sdk.account();
 
 1. 登录
 kflogin -H 192.168.140.110  -i ceshi001 -u admin -p 123456 #-f可以删除登录缓存文件，重新登录, -d选项开启调用日志
+多用户使用时kflogin的返回里会有一个info_key，使用info_key可以指定用户
 
 2. 上传
 kfupload -i 21474836482 -t node_modules #-i指定要上传到的云端文件夹的id
+多用户使用时kfupload -p /share/path/to/upload -t node_modules -k xfdfdfdfdfd #k为kflogin返回的key 共享空间以/share开头，个人空间以/cage开头
 
 3. 下载
 kfdownload -i 21474836490 #-i指定要下载的云端文件（夹）的id
