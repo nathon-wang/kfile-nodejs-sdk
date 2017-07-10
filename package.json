@@ -1,6 +1,6 @@
 {
   "name": "kingfile",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "dependencies": {
     "append-stream": "^1.2.2",
     "argparse": "^1.0.9",
