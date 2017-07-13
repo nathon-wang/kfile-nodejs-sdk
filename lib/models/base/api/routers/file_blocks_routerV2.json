@@ -214,5 +214,182 @@
                 "max": 16
             }
         }
+    },
+    {
+        "pattern": "/v1/xfile/file/huge/upload/check",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "name": {
+                "type": "str",
+                "length": 1024
+            },
+            "size": {
+                "type": "int",
+                "min": 0
+            },
+            "sha1": {
+                "type": "str",
+                "length": 255
+            },
+            "txId":{
+                "type":"int",
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/file/huge/upload/exists",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "size": {
+                "type": "int",
+                "min": 0
+            },
+            "sha1": {
+                "type": "str",
+                "length": 255
+            },
+            "txId":{
+                "type":"int",
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/file/huge/upload/create",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "name": {
+                "type": "str",
+                "min": 1,
+                "length": 1024
+            },
+            "size": {
+                "type": "int",
+                "min": 0
+            },
+            "sha1": {
+                "type": "str",
+                "length": 255
+            },
+            "blockInfo": {
+                "type": "jsonArray",
+                "format": {"i": "int", "w": "str", "s": "str", "z": "int:empty"},
+                "min": 0,
+                "max": 16
+            },
+            "txId":{
+                "type":"int",
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/file/huge/upload/diff",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "fileVer": {
+                "type": "int",
+                "min": 1
+            },
+            "blockInfo": {
+                "type": "jsonArray",
+                "format": {"i": "int", "w": "str", "s": "str", "z": "int:empty"},
+                "min": 1,
+                "max": 16
+            },
+            "txId":{
+                "type":"int",
+                "optional": 0
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/file/huge/block/upload/confirm",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "fileVer": {
+                "type": "int",
+                "min": 1
+            },
+            "bid": {
+                "type": "int",
+                "min": 0
+            },
+            "weak": {
+                "type": "str",
+                "length": 255
+            },
+            "strong": {
+                "type": "str",
+                "length": 255
+            },
+            "stub": {
+                "type": "str",
+                "length": 255
+            }
+        }
+    },
+    {
+        "pattern": "/v1/xfile/file/huge/upload/commit",
+        "method": "POST",
+        "arguments":{
+            "xid": {
+                "type": "int",
+                "min": 1
+            },
+            "fileVer": {
+                "type": "int",
+                "min": 1
+            },
+            "blockMax": {
+                "type": "int",
+                "min": 0
+            },
+            "bid": {
+                "type": "int",
+                "min": -1,
+                "optional": -1
+            },
+            "weak": {
+                "type": "str",
+                "length": 255,
+                "optional": ""
+            },
+            "strong": {
+                "type": "str",
+                "length": 255,
+                "optional": ""
+            },
+            "stub": {
+                "type": "str",
+                "length": 255,
+                "optional": ""
+            },
+            "txId":{
+                "type":"int",
+                "optional": 0
+            }
+        }
     }
 ]
