@@ -49,7 +49,7 @@ var kfile = require("../lib/kfile"),
 	if (args.force !== null) {
 		helper.forceLogin(function () {
 			Login(args, function (info) {
-				console.log(info);
+			        console.log(JSON.stringify(info, null, 4));
 			}, function(error) {
 				console.log(error.stack);
 				process.exit(-1);
@@ -58,13 +58,13 @@ var kfile = require("../lib/kfile"),
 	} else {
 		helper.loadLoginInfo(function () {
 			Login(args, function (info) {
-				console.log(info);
+			        console.log(JSON.stringify(info, null, 4));
 			}, function(error) {
 				console.log(error.stack);
 				process.exit(-1);
 			});
 		}, function (logined_info) {
-			console.log(logined_info);
+			console.log(JSON.stringify(logined_info, null, 4));
 		});
 	}
 
