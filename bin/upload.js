@@ -24,9 +24,8 @@ var Upload = require('./task').Upload;
 		],
 		[
 			['-d', '--debug'],
-			{help: 'debug mode, print detailed api call info', action: 'storeTrue'}
+			{help: 'debug mode, print detailed api call info'}
 		]
-
 	]);
 
 	var args = parser.parse();

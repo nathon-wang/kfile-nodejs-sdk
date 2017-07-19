@@ -36,7 +36,7 @@ var kfile = require("../lib/kfile"),
 		],
 		[
 			['-d', '--debug'],
-			{help: 'debug mode, print detailed api call info', action: 'storeTrue'}
+			{help: 'debug mode, print detailed api call info'}
 		]
 	]);
 

@@ -24,7 +24,7 @@ var Download = require("./task").Download,
 		],
 		[
 			['-d', '--debug'],
-			{help: 'debug mode, print detailed api call info', action: 'storeTrue'}
+			{help: 'debug mode, print detailed api call info'}
 		]
 
 	]);
