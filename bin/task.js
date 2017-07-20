@@ -4,7 +4,12 @@ var _ = require("lodash"),
     helper = require("./helper");
 
 
-function upload(args, succeed, failed) {
+function upload(args, succeed, failed, retry) {
+	if (retry === undefined) {
+		retry = 1;
+	} else {
+		retry += 1;
+	}
 	helper.loginProtected(args)(function (Account) {
 		Account.then(function (loginedAccount) {
 			var remote_location = args.id || args.path;
@@ -21,7 +26,11 @@ function upload(args, succeed, failed) {
 			succeed();
 		})
 		.catch(function (error) {
-			failed(error);
+			if (retry >= 3) {
+				failed(error);
+			} else {
+				upload(args, succeed, failed, retry);
+			}
 		});
 	});
 }
