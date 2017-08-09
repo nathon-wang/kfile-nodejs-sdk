@@ -23,6 +23,10 @@ var kfile = require("../lib/kfile"),
 			{help: 'password'}
 		],
 		[
+			['-k', '--key'],
+			{help: 'specify the login key'}
+		],
+		[
 			['-H', '--host'],
 			{help: 'kingfile host'}
 		],
@@ -31,42 +35,27 @@ var kfile = require("../lib/kfile"),
 			{help: 'kingfile port'}
 		],
 		[
-			['-f', '--force'],
-			{help: 'force login', nargs: 0, defaultValue: null}
-		],
-		[
 			['-d', '--debug'],
 			{help: 'debug mode, print detailed api call info'}
 		]
 	]);
 
 	var args = parser.parse();
-	if (args.host === null || args.user === null || args.pass === null || args.ident === null) {
+	if ((args.host === null || args.user === null || args.pass === null || args.ident === null) && args.key === null) {
 		console.log("Use option -h|--help get help info");
 		process.exit(0);
 	}
 
-	if (args.force !== null) {
-		helper.forceLogin(function () {
-			Login(args, function (info) {
-			        console.log(JSON.stringify(info, null, 4));
-			}, function(error) {
-				console.log(error.stack);
-				process.exit(-1);
-			});
+	helper.loadLoginInfo(args.key, function () {
+		Login(args, function (info) {
+			console.log(JSON.stringify(info, null, 4));
+		}, function(error) {
+			console.log(error.stack);
+			process.exit(-1);
 		});
-	} else {
-		helper.loadLoginInfo(function () {
-			Login(args, function (info) {
-			        console.log(JSON.stringify(info, null, 4));
-			}, function(error) {
-				console.log(error.stack);
-				process.exit(-1);
-			});
-		}, function (logined_info) {
-			console.log(JSON.stringify(logined_info, null, 4));
-		});
-	}
+	}, function (logined_info) {
+		console.log(JSON.stringify(logined_info, null, 4));
+	});
 
 })();
 

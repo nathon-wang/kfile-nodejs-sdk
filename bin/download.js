@@ -29,7 +29,7 @@ var Download = require("./task").Download,
 
 	]);
 	var args = parser.parse();
-	if (args.path === null && args.id === null) {
+	if (args.path === null && args.id === null || args.key === null) {
 		console.log("Use option -h|--help get help info");
 		process.exit(0);
 	}

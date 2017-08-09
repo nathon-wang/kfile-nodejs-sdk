@@ -29,7 +29,7 @@ var Upload = require('./task').Upload;
 	]);
 
 	var args = parser.parse();
-	if (args.target === null || args.path === null && args.id === null) {
+	if (args.target === null || args.path === null && args.id === null || args.key === null) {
 		console.log('Use -h|--help option for help');
 		process.exit(0);
 	}

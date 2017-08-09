@@ -35,29 +35,19 @@ exports.MyArgumentParser = MyArgumentParser;
 
 function loginProtected(args) {
 	return function (operation) {
-		fs.readFile(LOGIN_INFO_FILE, function(error, buffer) {
+		fs.readFile(LOGIN_INFO_FILE + '_' + args.key + '.json', function(error, buffer) {
 			if (error) {
 				console.error('not login!!!');
 				process.exit(-1);
 			} else {
-				var data = buffer.toString(), login_info_arr, login_info;
+				var data = buffer.toString(), login_info;
 				if (!data) {
 					console.error('not login!!!');
 					process.exit(-1);
 				}
 
 				try {
-					login_info_arr = JSON.parse(buffer.toString());
-					if (args.key) {
-						login_info = _.find(login_info_arr, function(item) {
-							if (item.info_key === args.key) {
-								return item;
-							}
-						});
-
-					} else {
-						login_info = login_info_arr[0];
-					}
+					login_info = JSON.parse(buffer.toString());
 					if(!login_info) {
 						console.error('not login!!!');
 						process.exit(-1);
@@ -82,50 +72,30 @@ function loginProtected(args) {
 
 exports.loginProtected = loginProtected;
 
-function forceLogin(not_logined_func) {
-	fs.unlink(LOGIN_INFO_FILE, function (error) {
+function loadLoginInfo(key, not_logined_func, logined_func) {
+	if (key === null) {
 		not_logined_func();
-	});
-}
-
-exports.forceLogin = forceLogin;
-
-function loadLoginInfo(not_logined_func, logined_func) {
-	fs.readFile(LOGIN_INFO_FILE, function(error, buffer) {
-		if (error) {
-			not_logined_func();
-		} else {
-			var logined_info = JSON.parse(buffer.toString());
-			if (logined_info.token) {
-				logined_func(logined_info);
-			} else {
+	} else {
+		fs.readFile(LOGIN_INFO_FILE + '_' + key + '.json', function(error, buffer) {
+			if (error) {
 				not_logined_func();
+			} else {
+				var logined_info = JSON.parse(buffer.toString());
+				if (logined_info.token) {
+					logined_func(logined_info);
+				} else {
+					not_logined_func();
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 exports.loadLoginInfo = loadLoginInfo;
 
 function saveLoginInfo(login_info, callback) {
-	fs.readFile(LOGIN_INFO_FILE, function (error, buffer) {
-		var content = [login_info];
-		if (!error) {
-			var data = buffer.toString(), idx;
-			if(data) {
-				var logined_info_arr = JSON.parse(data), new_logined_info_arr = [];
-				for (var i=0, len=logined_info_arr.length; i < len; i++) {
-					if (logined_info_arr[i].user_id != login_info.user_id) {
-						new_logined_info_arr.push(logined_info_arr[i]);
-					}
-				}
-				new_logined_info_arr.push(login_info);
-				content = new_logined_info_arr;
-			}
-		}
-		fs.writeFile(LOGIN_INFO_FILE, JSON.stringify(content, null, 4), function(error) {
-			callback(error);
-		});
+	fs.writeFile(LOGIN_INFO_FILE + '_' + login_info.info_key + '.json', JSON.stringify(login_info, null, 4), function(error) {
+		callback(error);
 	});
 }
 
