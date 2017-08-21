@@ -4,6 +4,9 @@ var Upload = require('./task').Upload;
     helper = require("./helper");
 
 (function () {
+	process.on('uncaughtException', function (exception) {
+		console.log('UncaughtException happend ' + exception);
+	});
 	var parser = new helper.MyArgumentParser();
 	parser.set_options([
 		[
